@@ -1,0 +1,182 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <SolidColorBrush x:Key="ButtonHighlight" Color="#EBEBE4" />
+    <SolidColorBrush x:Key="ButtonLight" Color="#F8F8F8" />
+    <SolidColorBrush x:Key="ButtonFace" Color="#F8F8F8" />
+    <SolidColorBrush x:Key="ButtonShadow" Color="#918c90" />
+    <SolidColorBrush x:Key="ButtonDarkShadow" Color="#696468" />
+    <SolidColorBrush x:Key="ButtonFlashingFace" Color="#0A246A" />
+    <system:Boolean x:Key="InvertSystemNotifyIcons">True</system:Boolean>
+    <SolidColorBrush x:Key="ButtonForeground" Color="#000000" />
+    <SolidColorBrush x:Key="ButtonFlashingForeground" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ClockForeground" Color="#000000" />
+
+    <SolidColorBrush x:Key="ToolTipBackground" Color="#FFFFE1" />
+    <SolidColorBrush x:Key="ToolTipForeground" Color="#000000" />
+
+    <FontFamily x:Key="GlobalFontFamily">Tahoma</FontFamily>
+
+    <Style TargetType="TextBlock"
+           x:Key="Clock"
+           BasedOn="{StaticResource Clock}">
+        <Setter Property="Text"
+                Value="" />
+        <Setter Property="FontFamily"
+                Value="Tahoma" />
+        <Setter Property="FontWeight"
+                Value="Bold" />
+        <Setter Property="FontSize"
+                Value="11" />
+    </Style>
+
+    <Style TargetType="TextBlock"
+           x:Key="StartLabel"
+           BasedOn="{StaticResource StartLabel}">
+        <Setter Property="Text"
+                Value="" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource start_text_xp_font_family}" />
+        <Setter Property="FontSize"
+                Value="19" />
+        <Setter Property="FontStyle"
+                Value="Italic" />
+        <Setter Property="FontWeight"
+                Value="Normal" />
+        <Setter Property="Margin"
+                Value="0,0,0,0" />
+        <Setter Property="Effect"
+                Value="{DynamicResource StartLabelShadow}" />
+    </Style>
+
+    <BitmapImage x:Key="StartButtonImage"
+                 UriSource="./Resources/startbutton.bmp" />
+
+    <Style TargetType="Image"
+           x:Key="TaskIcon"
+           BasedOn="{StaticResource TaskIcon}">
+        <Setter Property="Margin"
+                Value="0,0,4,0" />
+    </Style>
+
+    <Style TargetType="Image"
+           x:Key="StartIcon"
+           BasedOn="{StaticResource StartIcon}">
+        <Setter Property="Margin"
+                Value="-100,140,4,3" />
+        <Setter Property="Width"
+                Value="0" />
+        <Setter Property="Height"
+                Value="0" />
+    </Style>
+
+    <ToolTip x:Key="StartButtonTip" Content="{DynamicResource start_button_tip}" />
+
+    <Style TargetType="ToggleButton"
+           x:Key="StartButton">
+        <Setter Property="OverridesDefaultStyle"
+                Value="True" />
+        <Setter Property="Foreground"
+                Value="{DynamicResource ItemButtonForeground}" />
+        <Setter Property="Margin"
+                Value="2, 0, -26, 3" />
+        <Setter Property="MinWidth"
+                Value="91" />
+        <Setter Property="Height"
+                Value="33" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="StartButtonBorder">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{DynamicResource StartButtonImage}"
+                                        ViewboxUnits="RelativeToBoundingBox"
+                                        Viewbox="0,0,1.51,1.51" />
+                        </Border.Background>
+                        <ContentPresenter Margin="7, 7, 6, 7" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter TargetName="StartButtonBorder"
+                                    Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{DynamicResource StartButtonImage}"
+                                                ViewboxUnits="RelativeToBoundingBox"
+                                        Viewbox="0,0,1.51,1.51" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter TargetName="StartButtonBorder"
+                                    Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{DynamicResource StartButtonImage}"
+                                                ViewboxUnits="RelativeToBoundingBox"
+                                        Viewbox="0,0,1.51,1.51" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True">
+                            <Setter TargetName="StartButtonBorder"
+                                    Property="Background">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="{DynamicResource StartButtonImage}"
+                                                ViewboxUnits="RelativeToBoundingBox"
+                                        Viewbox="0,0,1.51,1.51" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                         Value="Vertical">
+                <DataTrigger.Setters>
+                    <Setter Property="Margin"
+                            Value="0" />
+                </DataTrigger.Setters>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <ControlTemplate TargetType="{x:Type UserControl}"
+                     x:Key="ClockTemplateKey">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{Binding Path=Now, StringFormat=t, Mode=OneWay}"
+                       Style="{DynamicResource Clock}"
+                       Name="ClockText">
+            </TextBlock>
+            <TextBlock Text="{Binding Path=Now, StringFormat=dddd, Mode=OneWay}"
+                       Style="{DynamicResource Clock}"
+                       Name="ClockVerticalDayOfWeek"
+                       Visibility="Collapsed">
+            </TextBlock>
+            <TextBlock Text="{Binding Path=Now, StringFormat=d, Mode=OneWay}"
+                       Style="{DynamicResource Clock}"
+                       Name="ClockVerticalDate"
+                       Visibility="Collapsed">
+            </TextBlock>
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding Path=Orientation, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                         Value="Vertical">
+                <DataTrigger.Setters>
+                    <Setter TargetName="ClockVerticalDayOfWeek"
+                            Property="Visibility"
+                            Value="Visible" />
+                    <Setter TargetName="ClockVerticalDate"
+                            Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger.Setters>
+            </DataTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+</ResourceDictionary>
